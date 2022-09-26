@@ -6,18 +6,41 @@ public class TowerBehaviour : MonoBehaviour
 {
     public GameObject Enemy;
 
+    public float Distance = 3.5f;
+
+    public float Damage = 20;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision)
         {
-            DestroyTarget();
+            FindTarget();
+            AttackTarget();
+            //CheckEnemyIfOutRange();
         }
-        Debug.Log("Target Confirmed");
+        else
+        {
+            //FindNextTarget();
+        }
+        Debug.Log("The code WORKS!!");
     }
 
-    void DestroyTarget()
+    void FindTarget()
     {
-        Destroy(this.Enemy);
-        Debug.Log("Target Elliminated");
+        if(Enemy)
+        {
+            this.Distance = Vector3.Distance(Enemy.transform.position, transform.position);
+            Debug.Log("Distance to enemy:" + Distance);
+
+        }
+        Debug.Log("Target Found");
+    }
+
+    void AttackTarget()
+    {
+        //if(Enemy.transform.position)
+        {
+
+        }
     }
 }

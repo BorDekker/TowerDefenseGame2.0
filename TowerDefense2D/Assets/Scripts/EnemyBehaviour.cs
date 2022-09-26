@@ -10,6 +10,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     int WayPointIndex = 0;
 
+    public int Health = 100;
+
     void Start()
     {
         transform.position = Waypoints[WayPointIndex].transform.position;
@@ -31,6 +33,14 @@ public class EnemyBehaviour : MonoBehaviour
         if (WayPointIndex == Waypoints.Length)
         {
             WayPointIndex = 0;
+        }
+    }
+
+    void TakeDamage()
+    {
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }

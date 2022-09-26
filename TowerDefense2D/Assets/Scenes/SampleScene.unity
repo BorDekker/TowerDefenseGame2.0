@@ -222,6 +222,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enemy: {fileID: 604422444}
+  Distance: 3.5
+  Damage: 20
 --- !u!58 &183388878
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -394,11 +396,11 @@ GameObject:
   m_Component:
   - component: {fileID: 604422447}
   - component: {fileID: 604422446}
-  - component: {fileID: 604422445}
   - component: {fileID: 604422448}
   - component: {fileID: 604422449}
+  - component: {fileID: 604422445}
   m_Layer: 0
-  m_Name: Enemy1
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -427,6 +429,7 @@ MonoBehaviour:
   - {fileID: 1466975314}
   - {fileID: 604028329}
   MoveSpeed: 2
+  Health: 100
 --- !u!212 &604422446
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -894,7 +897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemePrefab: {fileID: 604422444}
-  enemyInterval: 5
+  enemyInterval: 0.5
 --- !u!4 &1919400514
 Transform:
   m_ObjectHideFlags: 0

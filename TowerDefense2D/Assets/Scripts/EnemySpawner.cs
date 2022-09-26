@@ -10,6 +10,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private float enemyInterval = 5f;
 
+    //The numebr of enemies spawning in a wave
+    //private GameObject Enemy = 0;
+
     // Start is called before the first frame update
     void Start()
     {
