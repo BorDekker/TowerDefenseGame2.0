@@ -10,15 +10,22 @@ public class EnemyBehaviour : MonoBehaviour
 
     int WayPointIndex = 0;
 
-    public int Health = 100;
+    public int EnemyHealth;
+
+    public float EnemyLifeTime;
+    float EnemyStartTime;
 
     void Start()
     {
+        EnemyHealth = 100;
         transform.position = Waypoints[WayPointIndex].transform.position;
+
+        EnemyStartTime = Time.time;
     }
 
     void Update()
     {
+        EnemyLifeTime = (Time.time - EnemyStartTime) * MoveSpeed;
         Move();
     }
 
@@ -36,11 +43,8 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    void TakeDamage()
+    public void TakeDamage(int SomeDamage)
     {
-        if (Health <= 0)
-        {
-            Destroy(gameObject);
-        }
+        EnemyHealth -= SomeDamage;
     }
 }

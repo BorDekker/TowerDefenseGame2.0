@@ -5,10 +5,21 @@ using UnityEngine;
 public class TowerBehaviour : MonoBehaviour
 {
     public GameObject Enemy;
+    public GameObject HeavyEnemy;
+    public GameObject SmallEnemy;
 
-    public float Distance = 3.5f;
+    public List<GameObject> Enemies;
+    GameObject TargetEnemy;
 
-    public float Damage = 20;
+    public float Distance;
+
+    public int Damage;
+
+    [SerializeField]
+    public float Reload;
+
+    [SerializeField]
+    public float ReloadingTime = 0.5f;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -22,7 +33,18 @@ public class TowerBehaviour : MonoBehaviour
         {
             //FindNextTarget();
         }
-        Debug.Log("The code WORKS!!");
+        //Debug.Log("The code WORKS!!");
+    }
+
+    private void Update()
+    {
+        if (Reload < ReloadingTime)
+        {
+            Enemy.GetComponent<EnemyBehaviour>().EnemyHealth -= Damage;
+            Debug.Log("Doing Damage");
+        }
+
+        ReloadingTime += Time.deltaTime;
     }
 
     void FindTarget()
@@ -30,17 +52,25 @@ public class TowerBehaviour : MonoBehaviour
         if(Enemy)
         {
             this.Distance = Vector3.Distance(Enemy.transform.position, transform.position);
-            Debug.Log("Distance to enemy:" + Distance);
-
+            Debug.Log("Target Found");
         }
-        Debug.Log("Target Found");
+        else if (HeavyEnemy)
+        {
+            this.Distance = Vector3.Distance(HeavyEnemy.transform.position, transform.position);
+        }
+        else if (SmallEnemy)
+        {
+            this.Distance = Vector3.Distance(SmallEnemy.transform.position, transform.position);
+        }
     }
 
     void AttackTarget()
     {
-        //if(Enemy.transform.position)
+        //if()
         {
-
+           
         }
     }
+
+
 }
