@@ -27,6 +27,10 @@ public class EnemyBehaviour : MonoBehaviour
     {
         EnemyLifeTime = (Time.time - EnemyStartTime) * MoveSpeed;
         Move();
+        if (EnemyHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Move()
@@ -39,7 +43,8 @@ public class EnemyBehaviour : MonoBehaviour
         }
         if (WayPointIndex == Waypoints.Length)
         {
-            WayPointIndex = 0;
+            //WayPointIndex = 0;
+            Destroy(gameObject);
         }
     }
 
