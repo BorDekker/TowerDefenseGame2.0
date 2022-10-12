@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    [SerializeField] Transform[] Waypoints;
+    public GameObject[] Waypoints;
 
     [SerializeField] float MoveSpeed = 2f;
 
@@ -17,7 +17,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Start()
     {
-        EnemyHealth = 100;
         transform.position = Waypoints[WayPointIndex].transform.position;
 
         EnemyStartTime = Time.time;
@@ -43,7 +42,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
         if (WayPointIndex == Waypoints.Length)
         {
-            //WayPointIndex = 0;
+            WayPointIndex = 0;
             Destroy(gameObject);
         }
     }

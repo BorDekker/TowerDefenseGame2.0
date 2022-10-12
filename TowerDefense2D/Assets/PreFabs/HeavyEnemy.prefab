@@ -157,6 +157,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  MoveSpeed: 0.5
+  MoveSpeed: 1
   EnemyHealth: 900
   EnemyLifeTime: 0

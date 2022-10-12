@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public GameObject[] wayPoints;
+
     [SerializeField]
     private GameObject enemyPrefab;
 
@@ -41,6 +43,15 @@ public class EnemySpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(Interval);
         GameObject newEnemy = Instantiate(Enemy, new Vector3(Random.Range(-5f, 5f), Random.Range(-6f, 6f), 0), Quaternion.identity);
+        newEnemy.GetComponent<EnemyBehaviour>().Waypoints = wayPoints;
         StartCoroutine(spawnEnemy(Interval, Enemy));
+    }
+
+    public void CheckMissingEnemy(GameObject smallEnemyPrefab)
+    {
+        if(smallEnemyPrefab = null)
+        {
+            Debug.Log("Enemy is gone");
+        }
     }
 }
