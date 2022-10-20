@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class EnemySpawner : MonoBehaviour
 {
+    //Wave waves;s
+
     public GameObject[] wayPoints;
 
     [SerializeField]
@@ -12,13 +17,11 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private float enemyInterval = 5f;
 
-
     [SerializeField]
     private GameObject heavyEnemyPrefab;
 
     [SerializeField]
     private float heavyEnemyInterval = 10f;
-
 
     [SerializeField]
     private GameObject smallEnemyPrefab;
@@ -32,14 +35,17 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(spawnEnemy(enemyInterval, enemyPrefab));
+        //delayToNextWave = delayBetweenWaves;
+        
+                StartCoroutine(spawnEnemy(enemyInterval, enemyPrefab));
 
-        StartCoroutine(spawnEnemy(heavyEnemyInterval, heavyEnemyPrefab));
+                StartCoroutine(spawnEnemy(heavyEnemyInterval, heavyEnemyPrefab));
 
-        StartCoroutine(spawnEnemy(smallEnemyInterval, smallEnemyPrefab));
+                StartCoroutine(spawnEnemy(smallEnemyInterval, smallEnemyPrefab));
+        
     }
 
-    private IEnumerator spawnEnemy(float Interval, GameObject Enemy)
+    public IEnumerator spawnEnemy(float Interval, GameObject Enemy)
     {
         yield return new WaitForSeconds(Interval);
         GameObject newEnemy = Instantiate(Enemy, new Vector3(Random.Range(-5f, 5f), Random.Range(-6f, 6f), 0), Quaternion.identity);
@@ -47,11 +53,33 @@ public class EnemySpawner : MonoBehaviour
         StartCoroutine(spawnEnemy(Interval, Enemy));
     }
 
-    public void CheckMissingEnemy(GameObject smallEnemyPrefab)
+    private void Update()
     {
-        if(smallEnemyPrefab = null)
+        /*
+        if (delayToNextWave <= 0)
         {
-            Debug.Log("Enemy is gone");
+            SpawnWave();
+            delayToNextWave = 200;
+        }
+        delayToNextWave -= Time.deltaTime;
+        */
+
+        if (GameObject.Find("HealthBar").GetComponent<Slider>().value <= 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            Debug.Log("You Died");
         }
     }
 }
+/*
+    public void SpawnWave()
+    {
+        StartCoroutine(spawnEnemy(enemyInterval, enemyPrefab));
+        StartCoroutine(spawnEnemy(heavyEnemyInterval, heavyEnemyPrefab));
+        StartCoroutine(spawnEnemy(smallEnemyInterval, smallEnemyPrefab));
+        waves = new Wave();
+        Debug.Log(waves.enemy.name);
+        Debug.Log("StartWave");
+    }
+}
+    */

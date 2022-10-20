@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class TowerBehaviour : MonoBehaviour
 {
-    /*
-    public GameObject Enemy;
-    public GameObject HeavyEnemy;
-    public GameObject SmallEnemy;
-    */
     public List<GameObject> Enemies;
     float EnemyLifeTime;
+
+    public List<GameObject> EnemiesKilled;
+
     GameObject TargetEnemy;
 
     public float Distance;
@@ -23,12 +21,22 @@ public class TowerBehaviour : MonoBehaviour
     [SerializeField]
     public float ReloadingTime = 0.5f;
 
+    public Sprite Version1Level2;
+    public Sprite Version1Level3;
+
+    public Sprite Version2Level2;
+    public Sprite Version2Level3;
+
+    public Sprite Version3Level2;
+    public Sprite Version3Level3;
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision && collision.gameObject.transform.tag == "Enemy")// Kijkt of de tag van de collider "Enemy" is
         {
             Enemies.Add(collision.gameObject);//Voegt de enemy to aan de list Enemies
-            
+
+            //UpgradeTower();
             FindTarget();
             AttackTarget();
             //CheckEnemyIfOutRange();
@@ -78,11 +86,28 @@ public class TowerBehaviour : MonoBehaviour
         }
 
         ReloadingTime += Time.deltaTime;
+
+        //UpgradeTower();
     }
 
+    /*
+    void UpgradeTower()
+    {
+        if (EnemiesKilled.Count != 0)
+        {
+            for (int i = 0; i = EnemiesKilled; i++)
+            {
+                if (GetComponent<EnemyBehaviour>().EnemyHealth <= 0)
+                {
+                    Enemies.Add(EnemiesKilled[i]);
+                }
+            }
+        }
+    }
+    */
     void FindTarget()
     {
-            Debug.Log("Target Found");
+            //Debug.Log("Target Found");
         /*
         if(Enemy)
         {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BulletBehaviour : MonoBehaviour
 {
+    /*
     public float BulletInterval = 2f;
 
     [SerializeField]
@@ -46,4 +47,5 @@ public class BulletBehaviour : MonoBehaviour
             Destroy(BulletPrefab);
         }
     }
+    */
 }

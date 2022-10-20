@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+    [SerializeField] float Damage;
+
     public GameObject[] Waypoints;
+
+    Slider HPbar;
 
     [SerializeField] float MoveSpeed = 2f;
 
@@ -12,12 +17,16 @@ public class EnemyBehaviour : MonoBehaviour
 
     public int EnemyHealth;
 
+    //public int HP lose Player;
+
     public float EnemyLifeTime;
     float EnemyStartTime;
 
     void Start()
     {
         transform.position = Waypoints[WayPointIndex].transform.position;
+
+        HPbar = GameObject.Find("HealthBar").GetComponent<Slider>();
 
         EnemyStartTime = Time.time;
     }
@@ -40,15 +49,19 @@ public class EnemyBehaviour : MonoBehaviour
         {
             WayPointIndex += 1;
         }
+
         if (WayPointIndex == Waypoints.Length)
         {
+            HPbar.value -= Damage;
             WayPointIndex = 0;
             Destroy(gameObject);
+            //HP naar beneden;
         }
     }
-
+    /*
     public void TakeDamage(int SomeDamage)
     {
         EnemyHealth -= SomeDamage;
     }
+    */
 }
