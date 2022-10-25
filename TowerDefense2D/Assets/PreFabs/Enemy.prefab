@@ -248,5 +248,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   MoveSpeed: 2
-  EnemyHealth: 400
+  EnemyHealth: 100
+  enemyWorth: 50
   EnemyLifeTime: 0

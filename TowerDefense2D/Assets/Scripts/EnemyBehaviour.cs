@@ -17,6 +17,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     public int EnemyHealth;
 
+    public int enemyWorth;
+
     //public int HP lose Player;
 
     public float EnemyLifeTime;
@@ -37,6 +39,7 @@ public class EnemyBehaviour : MonoBehaviour
         Move();
         if (EnemyHealth <= 0)
         {
+            GameObject.Find("Placement").GetComponent<TowerPlacement>().totalMoney += enemyWorth;
             Destroy(gameObject);
         }
     }
@@ -58,10 +61,4 @@ public class EnemyBehaviour : MonoBehaviour
             //HP naar beneden;
         }
     }
-    /*
-    public void TakeDamage(int SomeDamage)
-    {
-        EnemyHealth -= SomeDamage;
-    }
-    */
 }

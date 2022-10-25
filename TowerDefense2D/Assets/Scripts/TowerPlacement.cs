@@ -10,8 +10,9 @@ public class TowerPlacement : MonoBehaviour
     [SerializeField]
     GameObject towerPosition;
 
-    [SerializeField]
-    GameObject selectedTower;
+    public GameObject selectedTower;
+
+    public int totalMoney;
 
     bool currsorTower;
     // Start is called before the first frame update
@@ -28,9 +29,10 @@ public class TowerPlacement : MonoBehaviour
         mouseWorldPosition.z = 0;
         transform.position = mouseWorldPosition;
 
-        if(Input.GetKeyDown(KeyCode.Mouse0) && currsorTower)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && currsorTower && totalMoney >= GameObject.Find("Placement").GetComponent<TowerBehaviour>().towerCost)
         {
             Debug.Log(towerPosition.name);
+            totalMoney -= GameObject.Find("Placement").GetComponent<TowerBehaviour>().towerCost;
             Instantiate(selectedTower, new Vector3(towerPosition.transform.position.x, towerPosition.transform.position.y, towerPosition.transform.position.z), Quaternion.identity);
             Destroy(towerPosition);
             towerPosition = null;

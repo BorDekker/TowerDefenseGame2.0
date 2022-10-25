@@ -115,14 +115,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enemies: []
-  EnemiesKilled: []
+  EnemiesKilled: 0
   Distance: 1.1
   Damage: 100
-  Reload: 1
+  Reload: 0.5
   ReloadingTime: 0
-  Version1Level2: {fileID: 0}
-  Version1Level3: {fileID: 0}
-  Version2Level2: {fileID: 0}
-  Version2Level3: {fileID: 0}
-  Version3Level2: {fileID: 0}
-  Version3Level3: {fileID: 0}
+  killsToUpgrade: 10
+  UpgradeTower: {fileID: 9008161932837587320, guid: 037edb9854696e04b9cc523621f9749b, type: 3}
+  towerCost: 10

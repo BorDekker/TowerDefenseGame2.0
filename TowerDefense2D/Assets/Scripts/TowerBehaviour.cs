@@ -7,7 +7,7 @@ public class TowerBehaviour : MonoBehaviour
     public List<GameObject> Enemies;
     float EnemyLifeTime;
 
-    public List<GameObject> EnemiesKilled;
+    public int EnemiesKilled;
 
     GameObject TargetEnemy;
 
@@ -21,31 +21,19 @@ public class TowerBehaviour : MonoBehaviour
     [SerializeField]
     public float ReloadingTime = 0.5f;
 
-    public Sprite Version1Level2;
-    public Sprite Version1Level3;
+    [SerializeField]
+    int killsToUpgrade;
 
-    public Sprite Version2Level2;
-    public Sprite Version2Level3;
+    public GameObject UpgradeTower;
 
-    public Sprite Version3Level2;
-    public Sprite Version3Level3;
+    public int towerCost;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision && collision.gameObject.transform.tag == "Enemy")// Kijkt of de tag van de collider "Enemy" is
         {
             Enemies.Add(collision.gameObject);//Voegt de enemy to aan de list Enemies
-
-            //UpgradeTower();
-            FindTarget();
-            AttackTarget();
-            //CheckEnemyIfOutRange();
         }
-        else
-        {
-            //FindNextTarget();
-        }
-        //Debug.Log("The code WORKS!!");
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -76,61 +64,22 @@ public class TowerBehaviour : MonoBehaviour
                         EnemyLifeTime = Enemies[i].GetComponent<EnemyBehaviour>().EnemyLifeTime;
                         TargetEnemy = Enemies[i];
                     }
+                    if(EnemiesKilled >= killsToUpgrade)
+                    {
+                        Instantiate(UpgradeTower, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+                        Destroy(gameObject);
+                    }
                 }
                 ReloadingTime = 0;
                 TargetEnemy.GetComponent<EnemyBehaviour>().EnemyHealth -= Damage;
+                if (TargetEnemy.GetComponent<EnemyBehaviour>().EnemyHealth <= 0)
+                {
+                    EnemiesKilled++;
+                }
                 TargetEnemy = null;
                 Debug.Log("Doing Damage");
             }
-
         }
-
         ReloadingTime += Time.deltaTime;
-
-        //UpgradeTower();
     }
-
-    /*
-    void UpgradeTower()
-    {
-        if (EnemiesKilled.Count != 0)
-        {
-            for (int i = 0; i = EnemiesKilled; i++)
-            {
-                if (GetComponent<EnemyBehaviour>().EnemyHealth <= 0)
-                {
-                    Enemies.Add(EnemiesKilled[i]);
-                }
-            }
-        }
-    }
-    */
-    void FindTarget()
-    {
-            //Debug.Log("Target Found");
-        /*
-        if(Enemy)
-        {
-            this.Distance = Vector3.Distance(Enemy.transform.position, transform.position);
-        }
-        else if (HeavyEnemy)
-        {
-            this.Distance = Vector3.Distance(HeavyEnemy.transform.position, transform.position);
-        }
-        else if (SmallEnemy)
-        {
-            this.Distance = Vector3.Distance(SmallEnemy.transform.position, transform.position);
-        }
-        
-        */
-    }
-
-    void AttackTarget()
-    {
-        //if()
-        {
-           
-        }
-    }
-
 }
