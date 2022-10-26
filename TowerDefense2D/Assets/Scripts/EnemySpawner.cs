@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class EnemySpawner : MonoBehaviour
 {
-    //Wave waves;s
-
     public GameObject[] wayPoints;
 
     [SerializeField]
@@ -29,41 +27,38 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private float smallEnemyInterval = 20f;
 
+    public int waveCount;
+
+    public int waveLenght = 30;
+
+    public int delayToNextWave = 20;
+
     //The numebr of enemies spawning in a wave
     //private GameObject EnemyNumbers = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        //delayToNextWave = delayBetweenWaves;
-        
-                StartCoroutine(spawnEnemy(enemyInterval, enemyPrefab));
+        StartCoroutine(spawnEnemy(enemyInterval, enemyPrefab));
 
-                StartCoroutine(spawnEnemy(heavyEnemyInterval, heavyEnemyPrefab));
+        StartCoroutine(spawnEnemy(heavyEnemyInterval, heavyEnemyPrefab));
 
-                StartCoroutine(spawnEnemy(smallEnemyInterval, smallEnemyPrefab));
-        
+        StartCoroutine(spawnEnemy(smallEnemyInterval, smallEnemyPrefab));
     }
 
     public IEnumerator spawnEnemy(float Interval, GameObject Enemy)
     {
-        yield return new WaitForSeconds(Interval);
-        GameObject newEnemy = Instantiate(Enemy, new Vector3(Random.Range(-5f, 5f), Random.Range(-6f, 6f), 0), Quaternion.identity);
-        newEnemy.GetComponent<EnemyBehaviour>().Waypoints = wayPoints;
-        StartCoroutine(spawnEnemy(Interval, Enemy));
+        if(delayToNextWave <= 0)
+        {
+            yield return new WaitForSeconds(Interval);
+            GameObject newEnemy = Instantiate(Enemy, new Vector3(Random.Range(-5f, 5f), Random.Range(-6f, 6f), 0), Quaternion.identity);
+            newEnemy.GetComponent<EnemyBehaviour>().Waypoints = wayPoints;
+            StartCoroutine(spawnEnemy(Interval, Enemy));
+        }
     }
 
     private void Update()
     {
-        /*
-        if (delayToNextWave <= 0)
-        {
-            SpawnWave();
-            delayToNextWave = 200;
-        }
-        delayToNextWave -= Time.deltaTime;
-        */
-
         if (GameObject.Find("HealthBar").GetComponent<Slider>().value <= 0)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -71,15 +66,3 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 }
-/*
-    public void SpawnWave()
-    {
-        StartCoroutine(spawnEnemy(enemyInterval, enemyPrefab));
-        StartCoroutine(spawnEnemy(heavyEnemyInterval, heavyEnemyPrefab));
-        StartCoroutine(spawnEnemy(smallEnemyInterval, smallEnemyPrefab));
-        waves = new Wave();
-        Debug.Log(waves.enemy.name);
-        Debug.Log("StartWave");
-    }
-}
-    */

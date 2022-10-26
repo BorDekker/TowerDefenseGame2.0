@@ -29,10 +29,10 @@ public class TowerPlacement : MonoBehaviour
         mouseWorldPosition.z = 0;
         transform.position = mouseWorldPosition;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && currsorTower && totalMoney >= GameObject.Find("Placement").GetComponent<TowerBehaviour>().towerCost)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && currsorTower && totalMoney >= selectedTower.GetComponent<TowerBehaviour>().towerCost)
         {
             Debug.Log(towerPosition.name);
-            totalMoney -= GameObject.Find("Placement").GetComponent<TowerBehaviour>().towerCost;
+            totalMoney -= selectedTower.GetComponent<TowerBehaviour>().towerCost;
             Instantiate(selectedTower, new Vector3(towerPosition.transform.position.x, towerPosition.transform.position.y, towerPosition.transform.position.z), Quaternion.identity);
             Destroy(towerPosition);
             towerPosition = null;

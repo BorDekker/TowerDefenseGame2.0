@@ -122,4 +122,4 @@ MonoBehaviour:
   ReloadingTime: 0
   killsToUpgrade: 20
   UpgradeTower: {fileID: 5438445438022447778, guid: 4a5d790a87ca44e49af063ebbfeb734c, type: 3}
-  towerCost: 10
+  towerCost: 400

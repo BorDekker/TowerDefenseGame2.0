@@ -122,4 +122,4 @@ MonoBehaviour:
   ReloadingTime: 0
   killsToUpgrade: 1000000
   UpgradeTower: {fileID: 0}
-  towerCost: 10
+  towerCost: 500
