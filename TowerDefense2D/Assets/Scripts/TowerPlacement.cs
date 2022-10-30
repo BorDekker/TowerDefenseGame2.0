@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class TowerPlacement : MonoBehaviour
 {
@@ -15,10 +17,16 @@ public class TowerPlacement : MonoBehaviour
     public int totalMoney;
 
     bool currsorTower;
+
+    public bool isColorActive;
+    public float timeColorIsActive;
+
+    [SerializeField]
+    TMP_Text Button1text;
     // Start is called before the first frame update
     void Start()
     {
-        
+        isColorActive = true;
     }
 
     // Update is called once per frame
@@ -29,7 +37,7 @@ public class TowerPlacement : MonoBehaviour
         mouseWorldPosition.z = 0;
         transform.position = mouseWorldPosition;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && currsorTower && totalMoney >= selectedTower.GetComponent<TowerBehaviour>().towerCost)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && currsorTower && totalMoney >= selectedTower.GetComponent<TowerBehaviour>().towerCost && selectedTower.GetComponent<TowerBehaviour>().towerOnItsRightFullPlace == towerPosition.transform.name)
         {
             Debug.Log(towerPosition.name);
             totalMoney -= selectedTower.GetComponent<TowerBehaviour>().towerCost;
@@ -38,15 +46,14 @@ public class TowerPlacement : MonoBehaviour
             towerPosition = null;
             currsorTower = false;
         }
-
     }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.transform.tag == "PlaceTower")
         {
             towerPosition = collision.gameObject;
             currsorTower = true;
-            Debug.Log("movement");
         }
     }
 

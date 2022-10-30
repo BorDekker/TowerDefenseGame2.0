@@ -118,7 +118,8 @@ MonoBehaviour:
   EnemiesKilled: 0
   Distance: 1
   Damage: 75
-  Reload: 0.5
+  Reload: 1.7
   ReloadingTime: 0
   killsToUpgrade: 14
   UpgradeTower: {fileID: 2214773250474115441, guid: 7a31f92b6d821ad4995c674274773891, type: 3}
+  towerCost: 0

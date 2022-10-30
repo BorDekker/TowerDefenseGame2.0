@@ -16,6 +16,12 @@ public class ChangeScene : MonoBehaviour
         Debug.Log("Option click");
     }
 
+    public void GoBack()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        Debug.Log("Going back");
+    }
+
     public void QuitGame()
     {
         Debug.Log("Quitting Game");
@@ -31,5 +37,17 @@ public class ChangeScene : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         Debug.Log("This is where the fun begins");
+    }
+
+    public void IfDiedBackToMap()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+        Debug.Log("Going back to map");
+    }
+
+    public void IfWonBackToMap()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 3);
+        Debug.Log("Going back to map");
     }
 }

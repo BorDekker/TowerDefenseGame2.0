@@ -28,6 +28,8 @@ public class TowerBehaviour : MonoBehaviour
 
     public int towerCost;
 
+    public string towerOnItsRightFullPlace;
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision && collision.gameObject.transform.tag == "Enemy")// Kijkt of de tag van de collider "Enemy" is

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class EnemyBehaviour : MonoBehaviour
 {
@@ -19,9 +20,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     public int enemyWorth;
 
-    //public int HP lose Player;
-
     public float EnemyLifeTime;
+
     float EnemyStartTime;
 
     void Start()
@@ -39,6 +39,10 @@ public class EnemyBehaviour : MonoBehaviour
         Move();
         if (EnemyHealth <= 0)
         {
+            if(gameObject.name == "Boss(Clone)")
+            {
+                SceneManager.LoadScene(4);
+            }
             GameObject.Find("Placement").GetComponent<TowerPlacement>().totalMoney += enemyWorth;
             Destroy(gameObject);
         }
@@ -57,8 +61,9 @@ public class EnemyBehaviour : MonoBehaviour
         {
             HPbar.value -= Damage;
             WayPointIndex = 0;
+            GameObject.Find("Placement").GetComponent<TowerPlacement>().totalMoney += enemyWorth;
             Destroy(gameObject);
-            //HP naar beneden;
+            //Player HP naar beneden;
         }
     }
 }

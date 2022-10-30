@@ -117,9 +117,10 @@ MonoBehaviour:
   Enemies: []
   EnemiesKilled: 0
   Distance: 3
-  Damage: 1500
-  Reload: 3
+  Damage: 2000
+  Reload: 4
   ReloadingTime: 0
   killsToUpgrade: 1000000
   UpgradeTower: {fileID: 0}
-  towerCost: 500
+  towerCost: 10000
+  towerOnItsRightFullPlace: StrongestTower

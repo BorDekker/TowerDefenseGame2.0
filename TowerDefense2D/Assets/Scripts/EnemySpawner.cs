@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 
 public class EnemySpawner : MonoBehaviour
@@ -13,25 +14,49 @@ public class EnemySpawner : MonoBehaviour
     private GameObject enemyPrefab;
 
     [SerializeField]
-    private float enemyInterval = 5f;
+    private float enemyInterval;
 
     [SerializeField]
     private GameObject heavyEnemyPrefab;
 
     [SerializeField]
-    private float heavyEnemyInterval = 10f;
+    private float heavyEnemyInterval;
 
     [SerializeField]
     private GameObject smallEnemyPrefab;
 
     [SerializeField]
-    private float smallEnemyInterval = 20f;
+    private float smallEnemyInterval;
+
+    [SerializeField]
+    private GameObject bossPrefab;
 
     public int waveCount;
 
-    public int waveLenght = 30;
+    [SerializeField]
+    TMP_Text WaveCounter;
 
-    public int delayToNextWave = 20;
+    public float waveLenght;
+
+    public bool waveBusy;
+
+    public float delayToNextWave;
+
+    public bool wavePause;
+
+    public bool bossCanSpawn = true;
+
+    [SerializeField]
+    TMP_Text WaveTimer;
+
+    [SerializeField]
+    TMP_Text WaveDuration;
+
+    IEnumerator myCoroutineTDE;
+
+    IEnumerator myCoroutineTDHE;
+
+    IEnumerator myCoroutineTDSE;
 
     //The numebr of enemies spawning in a wave
     //private GameObject EnemyNumbers = 0;
@@ -39,30 +64,118 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(spawnEnemy(enemyInterval, enemyPrefab));
+        wavePause = true;
+        waveBusy = false;
 
-        StartCoroutine(spawnEnemy(heavyEnemyInterval, heavyEnemyPrefab));
+        myCoroutineTDE = spawnEnemy(enemyInterval, enemyPrefab);
 
-        StartCoroutine(spawnEnemy(smallEnemyInterval, smallEnemyPrefab));
+        myCoroutineTDHE = spawnEnemy(heavyEnemyInterval, heavyEnemyPrefab);
+
+        myCoroutineTDSE = spawnEnemy(smallEnemyInterval, smallEnemyPrefab);
+
+        //StartCoroutine(spawnEnemy(enemyInterval, enemyPrefab));
+
+        //StartCoroutine(spawnEnemy(heavyEnemyInterval, heavyEnemyPrefab));
+
+        //StartCoroutine(spawnEnemy(smallEnemyInterval, smallEnemyPrefab));
     }
 
     public IEnumerator spawnEnemy(float Interval, GameObject Enemy)
     {
-        if(delayToNextWave <= 0)
+        yield return new WaitForSeconds(Interval);
+        if(waveBusy)
         {
-            yield return new WaitForSeconds(Interval);
             GameObject newEnemy = Instantiate(Enemy, new Vector3(Random.Range(-5f, 5f), Random.Range(-6f, 6f), 0), Quaternion.identity);
             newEnemy.GetComponent<EnemyBehaviour>().Waypoints = wayPoints;
-            StartCoroutine(spawnEnemy(Interval, Enemy));
         }
+        StartCoroutine(spawnEnemy(Interval, Enemy));
     }
 
     private void Update()
     {
+        if (wavePause)
+        {
+            if (delayToNextWave > 0)
+            {
+                delayToNextWave -= Time.deltaTime;
+                UpdateTime(delayToNextWave);
+            }
+            else
+            {
+                Debug.Log("Next Wave Begins");
+                delayToNextWave = 0;
+                wavePause = false;
+                waveBusy = true;
+
+                StartCoroutine(myCoroutineTDE);
+
+                StartCoroutine(myCoroutineTDHE);
+
+                StartCoroutine(myCoroutineTDSE);
+
+                waveCount++;
+                
+                waveLenght += 10;
+            }
+        }
+
+        if (waveBusy)
+        {
+            if (waveLenght > 0)
+            {
+                waveLenght -= Time.deltaTime;
+                WaveOngoing(waveLenght);
+            }
+            else
+            {
+                Debug.Log("Pause between waves");
+                waveLenght = 0;
+                wavePause = true;
+                waveBusy = false;
+
+                if(wavePause == true)
+                {
+                    StopCoroutine(myCoroutineTDE);
+
+                    StopCoroutine(myCoroutineTDHE);
+
+                    StopCoroutine(myCoroutineTDSE);
+                }
+               
+                delayToNextWave += 10;
+            }
+        }
+
+        if(waveCount == 2 && bossCanSpawn == true)
+        {
+            GameObject newEnemy = Instantiate(bossPrefab);
+            newEnemy.GetComponent<EnemyBehaviour>().Waypoints = wayPoints;
+            bossCanSpawn = false;
+        }
+
         if (GameObject.Find("HealthBar").GetComponent<Slider>().value <= 0)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             Debug.Log("You Died");
         }
+    }
+    void UpdateTime(float currentTime)
+    {
+        currentTime += 1;
+
+        float minutes = Mathf.FloorToInt(currentTime / 60);
+        float seconds = Mathf.FloorToInt(currentTime % 60);
+
+        WaveTimer.text = string.Format("Next Wave {00}:{1:00}", minutes, seconds);
+    }
+
+    void WaveOngoing(float CurrentTime)
+    {
+        CurrentTime += 1;
+
+        float minutes = Mathf.FloorToInt(CurrentTime / 60);
+        float seconds = Mathf.FloorToInt(CurrentTime % 60);
+
+        WaveDuration.text = string.Format("Wave Lenght {00}:{1:00}", minutes, seconds);
     }
 }
