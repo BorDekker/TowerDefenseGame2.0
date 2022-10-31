@@ -8,5 +8,3 @@ flowchart TD
     E --> F(Enemies in Hero range)
     F --> |If enemies are in range| H(Attack enemies)
     F --> |If enemies are not in range| G( Do nothing)
- 
-h
