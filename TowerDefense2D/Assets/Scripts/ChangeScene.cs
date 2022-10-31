@@ -24,7 +24,7 @@ public class ChangeScene : MonoBehaviour
 
     public void QuitGame()
     {
-        Debug.Log("Quitting Game");
+        Application.Quit();
     }
 
     public void StartLevel()

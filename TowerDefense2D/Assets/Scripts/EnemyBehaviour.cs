@@ -24,6 +24,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     float EnemyStartTime;
 
+    public int maxHealth;
+
     void Start()
     {
         transform.position = Waypoints[WayPointIndex].transform.position;
@@ -31,6 +33,8 @@ public class EnemyBehaviour : MonoBehaviour
         HPbar = GameObject.Find("HealthBar").GetComponent<Slider>();
 
         EnemyStartTime = Time.time;
+
+        maxHealth = EnemyHealth;
     }
 
     void Update()

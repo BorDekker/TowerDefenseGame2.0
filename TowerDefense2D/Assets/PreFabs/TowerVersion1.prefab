@@ -117,10 +117,10 @@ MonoBehaviour:
   Enemies: []
   EnemiesKilled: 0
   Distance: 0.9
-  Damage: 100
-  Reload: 1.5
+  Damage: 75
+  Reload: 1
   ReloadingTime: 0
-  killsToUpgrade: 8
+  killsToUpgrade: 4
   UpgradeTower: {fileID: 8795977429344209959, guid: adf60ec369aaf2342ae2a71bfbb776c2, type: 3}
-  towerCost: 150
+  towerCost: 300
   towerOnItsRightFullPlace: MediumTower

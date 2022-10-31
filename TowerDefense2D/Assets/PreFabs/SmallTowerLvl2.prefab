@@ -101,7 +101,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.2
+  m_Radius: 1.4
 --- !u!114 &6857765918657394935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,9 +116,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemies: []
   EnemiesKilled: 0
-  Distance: 1.2
-  Damage: 50
-  Reload: 0.15
+  Distance: 1.6
+  Damage: 170
+  Reload: 0.75
   ReloadingTime: 0
-  killsToUpgrade: 25
+  killsToUpgrade: 13
   UpgradeTower: {fileID: 2543719199904260219, guid: e3803425dcd6e4f4888e830e2aa80ac5, type: 3}
+  towerCost: 0
+  towerOnItsRightFullPlace: 

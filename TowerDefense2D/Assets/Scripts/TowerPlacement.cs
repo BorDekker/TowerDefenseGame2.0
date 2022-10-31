@@ -6,6 +6,10 @@ using TMPro;
 
 public class TowerPlacement : MonoBehaviour
 {
+    public Slider enemySlider;
+
+    public GameObject enemyHPBar;
+
     [SerializeField]
     private Camera mainCamera;
 
@@ -17,6 +21,10 @@ public class TowerPlacement : MonoBehaviour
     public int totalMoney;
 
     bool currsorTower;
+
+    bool cursorOnEnemy;
+
+    public GameObject onEnemy;
 
     public bool isColorActive;
     public float timeColorIsActive;
@@ -46,6 +54,16 @@ public class TowerPlacement : MonoBehaviour
             towerPosition = null;
             currsorTower = false;
         }
+        
+        enemyHPBar.SetActive(false);
+        if(cursorOnEnemy)
+        {
+        enemyHPBar.SetActive(true);
+        //enemyHPBar.transform.position = Camera.main.WorldToScreenPoint(onEnemy.transform.position);
+        enemySlider.maxValue = onEnemy.transform.gameObject.GetComponent<EnemyBehaviour>().maxHealth;
+        enemySlider.value = onEnemy.transform.gameObject.GetComponent<EnemyBehaviour>().EnemyHealth;
+            Debug.Log("Show HP bar");
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -55,6 +73,13 @@ public class TowerPlacement : MonoBehaviour
             towerPosition = collision.gameObject;
             currsorTower = true;
         }
+
+        if(collision.gameObject.transform.tag == "Enemy")
+        {
+            onEnemy = collision.gameObject;
+            cursorOnEnemy = true;
+            Debug.Log("On enemy");
+        }
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -63,6 +88,12 @@ public class TowerPlacement : MonoBehaviour
         {
             currsorTower = false;
             towerPosition = null;
+        }
+
+        if(collision.gameObject.transform.tag == "Enemy")
+        {
+            onEnemy = null;
+            cursorOnEnemy = false;
         }
     }
 }

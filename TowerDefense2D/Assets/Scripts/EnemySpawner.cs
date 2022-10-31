@@ -115,7 +115,7 @@ public class EnemySpawner : MonoBehaviour
 
                 waveCount++;
                 
-                waveLenght += 10;
+                waveLenght += 20;
             }
         }
 
@@ -142,11 +142,11 @@ public class EnemySpawner : MonoBehaviour
                     StopCoroutine(myCoroutineTDSE);
                 }
                
-                delayToNextWave += 10;
+                delayToNextWave += 15;
             }
         }
 
-        if(waveCount == 2 && bossCanSpawn == true)
+        if(waveCount == 8 && bossCanSpawn == true)
         {
             GameObject newEnemy = Instantiate(bossPrefab);
             newEnemy.GetComponent<EnemyBehaviour>().Waypoints = wayPoints;
